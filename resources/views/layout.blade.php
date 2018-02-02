@@ -13,7 +13,7 @@
       @include('include.navbar')
       @yield('content')
       <footer class="container">
-        <p>&copy; 2017-2018</p>
+        <p>&copy; 2018</p>
       </footer>
     </body>
 </html>
