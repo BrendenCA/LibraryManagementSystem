@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Catalog;
+use App\Author;
+use App\Genre;
 
 class CatalogController extends Controller
 {
@@ -14,7 +16,7 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        $catalog = Catalog::all();
+        $catalog = Catalog::paginate(10);
         return view('catalog.index')->with('catalogitems', $catalog);
     }
     /**
@@ -24,7 +26,9 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        //
+        $allAuthors = Author::all();
+        $allGenres = Genre::all();
+        return view('catalog.create')->with('allAuthors', $allAuthors)->with('allGenres', $allGenres);
     }
 
     /**
@@ -35,7 +39,26 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'title' =>'required',
+          'description' =>'required',
+          'isbn' =>'required',
+          'quantity' =>'required',
+          'price' =>'required',
+          'author' =>'required',
+          'genre' =>'required'
+        ]);
+        $item = new Catalog;
+        $item->title=$request->input('title');
+        $item->description=$request->input('description');
+        $item->isbn=$request->input('isbn');
+        $item->quantity=$request->input('quantity');
+        $item->price=$request->input('price');
+        $item->authorId=$request->input('author');
+        $item->genreId=$request->input('genre');
+        $item->save();
+
+        return redirect('/catalog/'.$item->id)->with('success', 'Item created');
     }
 
     /**
@@ -47,7 +70,9 @@ class CatalogController extends Controller
     public function show($id)
     {
       $item = Catalog::find($id);
-      return view('catalog.show')->with('item', $item);
+      $author = Author::find($item->authorId);
+      $genre = Genre::find($item->genreId);
+      return view('catalog.show')->with('item', $item)->with('author', $author)->with('genre', $genre);
     }
 
     /**
@@ -58,7 +83,12 @@ class CatalogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Catalog::find($id);
+        $author = Author::find($item->authorId);
+        $genre = Genre::find($item->genreId);
+        $allAuthors = Author::all();
+        $allGenres = Genre::all();
+        return view('catalog.edit')->with('item', $item)->with('author', $author)->with('genre', $genre)->with('allAuthors', $allAuthors)->with('allGenres', $allGenres);
     }
 
     /**
@@ -70,7 +100,25 @@ class CatalogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+          'title' =>'required',
+          'description' =>'required',
+          'isbn' =>'required',
+          'quantity' =>'required',
+          'price' =>'required',
+          'author' =>'required',
+          'genre' =>'required'
+        ]);
+        $item = Catalog::find($id);
+        $item->title=$request->input('title');
+        $item->description=$request->input('description');
+        $item->isbn=$request->input('isbn');
+        $item->quantity=$request->input('quantity');
+        $item->price=$request->input('price');
+        $item->authorId=$request->input('author');
+        $item->genreId=$request->input('genre');
+        $item->save();
+        return redirect('/catalog/'.$id)->with('success', 'Item updated');
     }
 
     /**
@@ -81,6 +129,8 @@ class CatalogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Catalog::find($id);
+        $item->delete();
+        return redirect('/catalog')->with('success', 'Item deleted');
     }
 }

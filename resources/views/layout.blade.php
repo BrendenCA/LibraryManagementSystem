@@ -11,6 +11,7 @@
     </head>
     <body>
       @include('include.navbar')
+      @include('include.messages')
       @yield('content')
       <footer class="container">
         <p>&copy; 2018</p>

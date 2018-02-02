@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="container">
-    <a class="btn btn-light" href="../">Go back</a>
+    <a class="btn btn-light" href="./">Go back</a>
     <h2>{{$item->title}}</h2>
     <small>Added on {{$item->created_at}}</small>
     <div>
@@ -11,7 +11,15 @@
       {{$item->isbn}}
       {{$item->price}}
       {{$item->quantity}}
-      <!--borrow book button-->
+      {{$author->name}}
+      {{$genre->title}}
+      <a class="btn btn-light" href="{{ route('catalog.edit', ['id' => $item->id])}}">Edit</a>
+      <form method="POST" action="{{ route('catalog.destroy', ['id' => $item->id])}}">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+        <button type="submit" class="btn btn-primary">Delete</button>
+      </form>
+      <a class="btn btn-light" href="#">Borrow</a>
     </div>
   </div>
 @endsection
