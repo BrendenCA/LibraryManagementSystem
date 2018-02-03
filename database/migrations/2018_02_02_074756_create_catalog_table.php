@@ -18,9 +18,9 @@ class CreateCatalogTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->mediumText('description');
-            $table->integer('authorId');
+            $table->integer('authorId')->unsigned();
             $table->string('isbn');
-            $table->integer('genreId');
+            $table->integer('genreId')->unsigned();
             $table->integer('price');
             $table->integer('quantity');
         });
