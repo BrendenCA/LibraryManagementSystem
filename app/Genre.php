@@ -11,6 +11,6 @@ class genre extends Model
   public $timestamps = true;
 
   public function catalog(){
-    return $this->hasMany('App\Catalog');
+    return $this->hasMany('App\Catalog', 'genreId');
   }
 }
