@@ -14,7 +14,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+      $authors = Author::paginate(10);
+      return view('author.index')->with('authors', $authors);
     }
 
     /**
@@ -24,7 +25,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('author.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+        'name' => 'required',
+      ]);
+      $author = new Author;
+      $author->name = $request->input('name');
+      $author->save();
+
+      return redirect('/author/'.$author->id)->with('success', 'Author created');
     }
 
     /**
@@ -46,7 +54,8 @@ class AuthorController extends Controller
      */
     public function show($id)
     {
-        //
+        $author = Author::find($id);
+        return view('author.show')->with('author', $author);
     }
 
     /**
@@ -57,7 +66,8 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $author = Author::find($id);
+        return view('author.edit')->with('author', $author);
     }
 
     /**
@@ -69,7 +79,11 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $author = Author::find($id);
+      $author->name = $request->input('name');
+      $author->save();
+
+      return redirect('/author/'.$author->id)->with('success', 'Author updated');
     }
 
     /**
@@ -80,6 +94,8 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $author = Author::find($id);
+        $author->delete();
+        return redirect('/author')->with('success', 'Author deleted');
     }
 }

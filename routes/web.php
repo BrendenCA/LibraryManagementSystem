@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('catalog', 'CatalogController');
+Route::resource('author', 'AuthorController');
