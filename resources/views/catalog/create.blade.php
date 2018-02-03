@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="container">
-    <h2>Edit</h2>
+    <h2>Create</h2>
     <form method="POST" action="{{ route('catalog.store')}}">
       {{ csrf_field() }}
 
