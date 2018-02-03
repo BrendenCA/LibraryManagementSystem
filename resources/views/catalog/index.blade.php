@@ -15,7 +15,7 @@
           </div>
         </div>
       @endforeach
-      {{$catalogitems->links("pagination::bootstrap-4")}} <!-- pagination magic currently set to 1/page-->
+      {{$catalogitems->links("pagination::bootstrap-4")}}
     @else
       <p>No items found</p>
     @endif

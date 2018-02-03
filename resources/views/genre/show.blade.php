@@ -3,19 +3,18 @@
 @section('content')
   <div class="container">
     <a class="btn btn-light" href="./">Go back</a>
-    <h2>{{$author->name}}</h2>
-    <small>Added on {{$author->created_at}}</small>
+    <h2>{{$genre->title}}</h2>
+    <small>Added on {{$genre->created_at}}</small>
     <div>
-      <img class="card-img-top" src="https://syracusepress.files.wordpress.com/2013/02/thomas-holliday-author-photo.jpg" alt="Author image">
-      <a class="btn btn-light" href="{{ route('author.edit', ['id' => $author->id])}}">Edit</a>
-      <form method="POST" action="{{ route('author.destroy', ['id' => $author->id])}}">
+      <a class="btn btn-light" href="{{ route('genre.edit', ['id' => $genre->id])}}">Edit</a>
+      <form method="POST" action="{{ route('genre.destroy', ['id' => $genre->id])}}">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
-        <!--TODO:popup that says deleteing author will delete all related catalog items aswell-->
+        <!--TODO:popup that says deleteing genre will delete all related catalog items aswell-->
         <button type="submit" class="btn btn-primary">Delete</button>
       </form>
-      @if(count($author->catalog)>0)
-        @foreach($author->catalog as $item)
+      @if(count($genre->catalog)>0)
+        @foreach($genre->catalog as $item)
           <div class="card" style="width: 18rem;">
             <!--TODO: Images-->
             <img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/51BOG9iJ4LL._SX404_BO1,204,203,200_.jpg" alt="Card image cap">

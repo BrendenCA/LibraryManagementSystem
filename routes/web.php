@@ -16,4 +16,5 @@ Route::get('/', function () {
 });
 
 Route::resource('catalog', 'CatalogController');
+Route::resource('genre', 'GenreController');
 Route::resource('author', 'AuthorController');

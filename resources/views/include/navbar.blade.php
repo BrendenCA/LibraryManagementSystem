@@ -9,6 +9,7 @@
       <a class="nav-item nav-link" href="/">Home </a>
       <a class="nav-item nav-link" href="/catalog">Catalog</a>
       <a class="nav-item nav-link" href="/author">Author</a>
+      <a class="nav-item nav-link" href="/genre">Genre</a>
     </div>
   </div>
 </div>

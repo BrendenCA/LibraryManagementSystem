@@ -14,7 +14,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+      $genres = Genre::paginate(10);
+      return view('genre.index')->with('genres', $genres);
     }
 
     /**
@@ -24,7 +25,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        return view('genre.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+        'title' => 'required',
+      ]);
+      $genre = new Genre;
+      $genre->title = $genre->input('title');
+      $genre->save();
+
+      return redirect('/genre/'.$genre->id)->with('success', 'Genre created');
     }
 
     /**
@@ -46,7 +54,8 @@ class GenreController extends Controller
      */
     public function show($id)
     {
-        //
+      $genre = Genre::find($id);
+      return view('genre.show')->with('genre', $genre);
     }
 
     /**
@@ -57,7 +66,8 @@ class GenreController extends Controller
      */
     public function edit($id)
     {
-        //
+      $genre = Genre::find($id);
+      return view('genre.edit')->with('genre', $genre);
     }
 
     /**
@@ -69,7 +79,11 @@ class GenreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $genre = Genre::find($id);
+      $genre->title = $request->input('title');
+      $genre->save();
+
+      return redirect('/genre/'.$genre->id)->with('success', 'Genre updated');
     }
 
     /**
@@ -80,6 +94,8 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $genre = Genre::find($id);
+      $genre->delete();
+      return redirect('/genre')->with('success', 'Genre deleted');
     }
 }

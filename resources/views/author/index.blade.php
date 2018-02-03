@@ -14,7 +14,7 @@
           </div>
         </div>
       @endforeach
-      {{$authors->links("pagination::bootstrap-4")}} <!-- pagination magic currently set to 1/page-->
+      {{$authors->links("pagination::bootstrap-4")}}
     @else
       <p>No authors found</p>
     @endif
