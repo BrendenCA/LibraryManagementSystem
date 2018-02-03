@@ -69,10 +69,10 @@ class CatalogController extends Controller
      */
     public function show($id)
     {
-      $item = Catalog::find($id);
-      $author = Author::find($item->authorId);
-      $genre = Genre::find($item->genreId);
-      return view('catalog.show')->with('item', $item)->with('author', $author)->with('genre', $genre);
+        $item = Catalog::find($id);
+        $author = Author::find($item->authorId);
+        $genre = Genre::find($item->genreId);
+        return view('catalog.show')->with('item', $item)->with('author', $author)->with('genre', $genre);
     }
 
     /**

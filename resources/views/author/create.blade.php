@@ -1,17 +1,15 @@
 @extends('layout')
 
 @section('content')
-  <div class="container">
-    <h2>Create</h2>
-    <form method="POST" action="{{ route('author.store')}}">
-      {{ csrf_field() }}
+  <h1>Create</h1>
+  <form method="POST" action="{{ route('author.store')}}">
+    {{ csrf_field() }}
 
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input class="form-control" id="name" name="name" placeholder="Enter name">
-      </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" id="name" name="name" placeholder="Enter name">
+    </div>
 
-      <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-  </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
 @endsection

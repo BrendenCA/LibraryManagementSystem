@@ -10,11 +10,13 @@ class Catalog extends Model
     public $primaryKey = 'id';
     public $timestamps = true;
 
-    public function genre(){
-      return $this->belongsTo('App\Genre');
+    public function genre()
+    {
+        return $this->belongsTo('App\Genre');
     }
 
-    public function author(){
-      return $this->belongsTo('App\Author');
+    public function author()
+    {
+        return $this->belongsTo('App\Author');
     }
 }

@@ -14,8 +14,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-      $authors = Author::paginate(10);
-      return view('author.index')->with('authors', $authors);
+        $authors = Author::paginate(10);
+        return view('author.index')->with('authors', $authors);
     }
 
     /**
@@ -36,14 +36,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, [
+        $this->validate($request, [
         'name' => 'required',
       ]);
-      $author = new Author;
-      $author->name = $request->input('name');
-      $author->save();
+        $author = new Author;
+        $author->name = $request->input('name');
+        $author->save();
 
-      return redirect('/author/'.$author->id)->with('success', 'Author created');
+        return redirect('/author/'.$author->id)->with('success', 'Author created');
     }
 
     /**
@@ -79,11 +79,11 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $author = Author::find($id);
-      $author->name = $request->input('name');
-      $author->save();
+        $author = Author::find($id);
+        $author->name = $request->input('name');
+        $author->save();
 
-      return redirect('/author/'.$author->id)->with('success', 'Author updated');
+        return redirect('/author/'.$author->id)->with('success', 'Author updated');
     }
 
     /**
