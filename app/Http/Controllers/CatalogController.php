@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Catalog;
 use App\Author;
 use App\Genre;
@@ -46,8 +47,16 @@ class CatalogController extends Controller
           'quantity' =>'required',
           'price' =>'required',
           'author' =>'required',
-          'genre' =>'required'
+          'genre' =>'required',
+          'image' => 'image|nullable|max:1999'
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('catalog_images', 's3');
+        } else {
+            $path = 'catalog_images/noimage.jpg';
+        }
+
         $item = new Catalog;
         $item->title=$request->input('title');
         $item->description=$request->input('description');
@@ -56,6 +65,7 @@ class CatalogController extends Controller
         $item->price=$request->input('price');
         $item->authorId=$request->input('author');
         $item->genreId=$request->input('genre');
+        $item->image=$path;
         $item->save();
 
         return redirect('/catalog/'.$item->id)->with('success', 'Item created');
@@ -107,9 +117,18 @@ class CatalogController extends Controller
           'quantity' =>'required',
           'price' =>'required',
           'author' =>'required',
-          'genre' =>'required'
+          'genre' =>'required',
+          'image' =>'image|nullable|max:1999'
         ]);
+
         $item = Catalog::find($id);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('catalog_images', 's3');
+            if ($item->image != 'catalog_images/noimage.jpg') {
+                Storage::disk('s3')->delete($item->image);
+            }
+            $item->image=$path;
+        }
         $item->title=$request->input('title');
         $item->description=$request->input('description');
         $item->isbn=$request->input('isbn');
@@ -130,6 +149,9 @@ class CatalogController extends Controller
     public function destroy($id)
     {
         $item = Catalog::find($id);
+        if ($item->image != 'catalog_images/noimage.jpg') {
+            Storage::disk('s3')->delete($item->image);
+        }
         $item->delete();
         return redirect('/catalog')->with('success', 'Item deleted');
     }

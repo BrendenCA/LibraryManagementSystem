@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class genre extends Model
+class Genre extends Model
 {
     protected $table = 'genre';
     public $primaryKey = 'id';

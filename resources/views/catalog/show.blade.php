@@ -5,7 +5,7 @@
   <h1>{{$item->title}}</h1>
   <small>Added on {{$item->created_at}}</small>
   <div>
-    <img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/51BOG9iJ4LL._SX404_BO1,204,203,200_.jpg" alt="temp image">
+    <img class="card-img-top" src="{{Storage::disk('s3')->temporaryUrl( $item->image, now()->addMinutes(5) )}}" alt="Book image">
     {{$item->description}}
     {{$item->isbn}}
     {{$item->price}}

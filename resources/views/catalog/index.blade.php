@@ -7,8 +7,7 @@
       <div class="card my-3">
         <div class="row">
           <div class="col-md-2">
-            <!--TODO: Images-->
-            <img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/51BOG9iJ4LL._SX404_BO1,204,203,200_.jpg" alt="Card image cap">
+            <img class="card-img-top" src="{{Storage::disk('s3')->temporaryUrl( $item->image, now()->addMinutes(5) )}}" alt="Book image">
           </div>
           <div class="col-md-8">
             <div class="card-body">

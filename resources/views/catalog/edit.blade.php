@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>Edit</h1>
-  <form method="POST" action="{{ route('catalog.update', ['id' => $item->id])}}">
+  <form method="POST" action="{{ route('catalog.update', ['id' => $item->id])}}" enctype="multipart/form-data">
     {{ csrf_field() }}
 
     <div class="form-group">
@@ -14,7 +14,7 @@
       <label for="description">Description</label>
       <textarea class="form-control" id="description" name="description" rows=3>{{$item->description}}</textarea>
     </div>
-    
+
     <div class="form-group">
       <label for="isbn">ISBN</label>
       <input class="form-control" id="isbn" name="isbn"value="{{$item->isbn}}">
@@ -53,6 +53,11 @@
         </select>
       </div>
     @endif
+
+    <div class="form-group">
+      <label for="image" class="btn btn-link">Change Image</label>
+      <input id="image" type="file" style="visibility:hidden;" name="image" accept="image/*">
+    </div>
 
     {{ method_field('PUT') }}
 

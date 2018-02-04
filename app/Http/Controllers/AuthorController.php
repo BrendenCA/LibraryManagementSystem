@@ -38,9 +38,17 @@ class AuthorController extends Controller
     {
         $this->validate($request, [
         'name' => 'required',
+        'image' => 'image|nullable|max:1999'
       ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('author_images', 's3');
+        } else {
+            $path = 'author_images/noimage.jpg';
+        }
         $author = new Author;
         $author->name = $request->input('name');
+        $author->image = $path;
         $author->save();
 
         return redirect('/author/'.$author->id)->with('success', 'Author created');
@@ -79,7 +87,18 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+          'name' => 'required',
+          'image' => 'image|nullable|max:1999'
+        ]);
         $author = Author::find($id);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('author_images', 's3');
+            if ($author->image != 'author_images/noimage.jpg') {
+                Storage::disk('s3')->delete($author->image);
+            }
+            $author->image=$path;
+        }
         $author->name = $request->input('name');
         $author->save();
 
@@ -95,6 +114,9 @@ class AuthorController extends Controller
     public function destroy($id)
     {
         $author = Author::find($id);
+        if ($author->image != 'author_images/noimage.jpg') {
+            Storage::disk('s3')->delete($author->image);
+        }
         $author->delete();
         return redirect('/author')->with('success', 'Author deleted');
     }
