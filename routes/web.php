@@ -20,4 +20,7 @@ Route::resource('genre', 'GenreController');
 Route::resource('author', 'AuthorController');
 
 Auth::routes();
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/dashboard', 'DashboardController@index');
+
+Route::get('/role/edit', 'RoleController@edit');
+Route::post('/role/update', 'RoleController@update');

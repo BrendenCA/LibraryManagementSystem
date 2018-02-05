@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8">
       <div class="card">
         <div class="card-header">Dashboard</div>
 
@@ -12,10 +12,19 @@
               {{ session('status') }}
             </div>
           @endif
-          
+
           You are logged in!
         </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">Actions</div>
+        <div class="card-body">
+          <a href="/role/edit">Change account type</a>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 @endsection
