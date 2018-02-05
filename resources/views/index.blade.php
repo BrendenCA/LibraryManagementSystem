@@ -7,7 +7,7 @@
       <p class="lead text-muted">A book is a gift you can open again and again.</p>
       <p>
         <a href="/catalog" class="btn btn-primary my-2">Browse our collection!</a>
-        <a href="#" class="btn btn-secondary my-2">Sign Up</a>
+        <a href="/register" class="btn btn-secondary my-2">Sign Up</a>
       </p>
     </div>
   </section>

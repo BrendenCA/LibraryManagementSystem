@@ -34,7 +34,7 @@
       <div class="form-group">
         <label for="author">Author</label>
         <select class="form-control" id="author" name="author">
-          <option selected value="{{$author->id}}">{{$author->name}}</option>
+          <option selected value="{{$item->author->id}}">{{$item->author->name}}</option>
           @foreach($allAuthors as $a)
             <option value="{{$a->id}}">{{$a->name}}</option>
           @endforeach
@@ -46,7 +46,7 @@
       <div class="form-group">
         <label for="genre">Genre</label>
         <select class="form-control" id="genre" name="genre">
-          <option selected value="{{$genre->id}}">{{$genre->title}}</option>
+          <option selected value="{{$item->genre->id}}">{{$item->genre->title}}</option>
           @foreach($allGenres as $g)
             <option value="{{$g->id}}">{{$g->title}}</option>
           @endforeach

@@ -14,7 +14,7 @@
       <label for="image" class="btn btn-link">Change Image</label>
       <input id="image" type="file" style="visibility:hidden;" name="image" accept="image/*">
     </div>
-    
+
     {{ method_field('PUT') }}
 
     <button type="submit" class="btn btn-primary">Edit</button>

@@ -1,23 +1,44 @@
 @extends('layout')
 
 @section('content')
-  <a class="btn btn-light" href="./">Go back</a>
+  <a class="btn" href="./">Go back</a>
   <h1>{{$item->title}}</h1>
-  <small>Added on {{$item->created_at}}</small>
-  <div>
-    <img class="card-img-top" src="{{Storage::disk('s3')->temporaryUrl( $item->image, now()->addMinutes(5) )}}" alt="Book image">
-    {{$item->description}}
-    {{$item->isbn}}
-    {{$item->price}}
-    {{$item->quantity}}
-    {{$author->name}}
-    {{$genre->title}}
-    <a class="btn btn-light" href="{{ route('catalog.edit', ['id' => $item->id])}}">Edit</a>
-    <form method="POST" action="{{ route('catalog.destroy', ['id' => $item->id])}}">
-      {{ csrf_field() }}
-      {{ method_field('DELETE') }}
-      <button type="submit" class="btn btn-primary">Delete</button>
-    </form>
-    <a class="btn btn-light" href="#">Borrow</a>
+  <div class="container">
+    <small>Added on {{$item->created_at}}</small>
+    <div class="row">
+      <div class="col-md-4">
+        <img class="card-img-top" src="{{Storage::disk('s3')->temporaryUrl( $item->image, now()->addMinutes(5) )}}" alt="Book image">
+      </div>
+      <div class="col-md-6">
+        <dl class="container">
+          <dt>Author Name</dt>
+          <dd>{{$item->author->name}}</dd>
+
+          <dt>Genre</dt>
+          <dd>{{$item->genre->title}}</dd>
+
+          <dt>ISBN</dt>
+          <dd>{{$item->isbn}}</dd>
+
+          <dt>Price</dt>
+          <dd>{{$item->price}}</dd>
+
+          <dt>Available Copies</dt>
+          <dd>{{$item->quantity}}</dd>
+
+          <dt>Description</dt>
+          <dd>{{$item->description}}</dd>
+        </dl>
+      </div>
+      <div class="col-md-2 btn-group-md btn-group-vertical justify-content-start">
+        <a class="btn btn-outline-info m-1" href="/catalog/{{$item->id}}/edit">Edit</a>
+        <a href="javascript:{}" class="btn btn-outline-danger m-1" onclick="document.getElementById('delete_form').submit();">Delete</a>
+        <form id="delete_form" method="POST" action="/catalog/{{$item->id}}">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+        </form>
+        <a class="btn btn-outline-success m-1" href="#">Borrow</a>
+      </div>
+    </div>
   </div>
 @endsection

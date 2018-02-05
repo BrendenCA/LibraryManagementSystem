@@ -80,9 +80,7 @@ class CatalogController extends Controller
     public function show($id)
     {
         $item = Catalog::find($id);
-        $author = Author::find($item->authorId);
-        $genre = Genre::find($item->genreId);
-        return view('catalog.show')->with('item', $item)->with('author', $author)->with('genre', $genre);
+        return view('catalog.show')->with('item', $item);
     }
 
     /**
@@ -94,11 +92,9 @@ class CatalogController extends Controller
     public function edit($id)
     {
         $item = Catalog::find($id);
-        $author = Author::find($item->authorId);
-        $genre = Genre::find($item->genreId);
         $allAuthors = Author::all();
         $allGenres = Genre::all();
-        return view('catalog.edit')->with('item', $item)->with('author', $author)->with('genre', $genre)->with('allAuthors', $allAuthors)->with('allGenres', $allGenres);
+        return view('catalog.edit')->with('item', $item)->with('allAuthors', $allAuthors)->with('allGenres', $allGenres);
     }
 
     /**

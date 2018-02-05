@@ -12,11 +12,11 @@ class Catalog extends Model
 
     public function genre()
     {
-        return $this->belongsTo('App\Genre');
+        return $this->belongsTo('App\Genre', 'genreId');
     }
 
     public function author()
     {
-        return $this->belongsTo('App\Author');
+        return $this->belongsTo('App\Author', 'authorId');
     }
 }
