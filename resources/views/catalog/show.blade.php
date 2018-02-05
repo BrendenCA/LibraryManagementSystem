@@ -9,7 +9,7 @@
       <div class="col-md-4">
         <img class="card-img-top" src="{{Storage::disk('s3')->temporaryUrl( $item->image, now()->addMinutes(5) )}}" alt="Book image">
       </div>
-      <div class="col-md-6">
+      <div class="col-md">
         <dl class="container">
           <dt>Author Name</dt>
           <dd>{{$item->author->name}}</dd>
@@ -30,15 +30,19 @@
           <dd>{{$item->description}}</dd>
         </dl>
       </div>
+      @auth
       <div class="col-md-2 btn-group-md btn-group-vertical justify-content-start">
-        <a class="btn btn-outline-info m-1" href="/catalog/{{$item->id}}/edit">Edit</a>
-        <a href="javascript:{}" class="btn btn-outline-danger m-1" onclick="document.getElementById('delete_form').submit();">Delete</a>
+          @if(Auth::User()->hasRole('admin'))
+            <a class="btn btn-outline-info m-1" href="/catalog/{{$item->id}}/edit">Edit</a>
+            <a href="javascript:{}" class="btn btn-outline-danger m-1" onclick="document.getElementById('delete_form').submit();">Delete</a>
         <form id="delete_form" method="POST" action="/catalog/{{$item->id}}">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
         </form>
+        @endif
         <a class="btn btn-outline-success m-1" href="#">Borrow</a>
       </div>
+      @endauth
     </div>
   </div>
 @endsection

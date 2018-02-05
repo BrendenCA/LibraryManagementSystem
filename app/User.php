@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'roleId'
     ];
 
     /**
@@ -26,4 +26,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function roles()
+    {
+        return $this->belongsTo('App\Role', 'roleId');
+    }
+
+    /**
+    * @param string|array $roles
+    */
+    public function authorizeRoles($roles)
+    {
+        return $this->hasRole($roles) ||
+         abort(401, 'This action is unauthorized.');
+    }
+
+    /**
+    * Check one role
+    * @param string $role
+    */
+    public function hasRole($role)
+    {
+        return $this->roles()->where('title', $role)->exists();
+    }
 }

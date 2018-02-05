@@ -8,34 +8,38 @@
     <div class="row">
       <div class="col-md-3 text-center">
         <img class="card-img-top my-2" src="{{Storage::disk('s3')->temporaryUrl( $author->image, now()->addMinutes(5) )}}" alt="Author image">
-        <a class="btn btn-secondary" href="/author/{{$author->id}}/edit">Edit</a>
-        <a href="javascript:{}" class="btn btn-danger m-1" data-toggle="modal" data-target="#confirmDelete">Delete</a>
-        <form id="delete_form" method="POST" action="/author/{{$author->id}}">
-          {{ csrf_field() }}
-          {{ method_field('DELETE') }}
-        </form>
+        @auth
+          @if(Auth::User()->hasRole('admin'))
+            <a class="btn btn-secondary" href="/author/{{$author->id}}/edit">Edit</a>
+            <a href="javascript:{}" class="btn btn-danger m-1" data-toggle="modal" data-target="#confirmDelete">Delete</a>
+            <form id="delete_form" method="POST" action="/author/{{$author->id}}">
+              {{ csrf_field() }}
+              {{ method_field('DELETE') }}
+            </form>
 
-        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteLabel">Confirm delete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Deleting author will delete all associated books also</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="document.getElementById('delete_form').submit();" data-dismiss="modal">DELETE</button>
+            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteLabel">Confirm delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Deleting author will delete all associated books also</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('delete_form').submit();" data-dismiss="modal">DELETE</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-
+          @endif
+        @endauth
       </div>
+      
       <div class="col-md-9">
         @if(count($author->catalog)>0)
           @foreach($author->catalog as $item)
@@ -50,15 +54,8 @@
                     <p class="card-text">{{$item->description}}</p>
                   </div>
                 </div>
-                <div class="col-md-2 px-4 btn-group btn-group-vertical">
-                  <a class="btn btn-outline-primary" href="/catalog/{{$item->id}}">View</a>
-                  <a class="btn btn-outline-info" href="/catalog/{{$item->id}}/edit">Edit</a>
-                  <a href="javascript:{}" class="btn btn-outline-danger" onclick="document.getElementById('delete_form').submit();">Delete</a>
-                  <form id="delete_form" method="POST" action="/catalog/{{$item->id}}">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                  </form>
-                  <a class="btn btn-outline-success" href="#">Borrow</a>
+                <div class="col-md-2 px-4 my-auto text-center">
+                  <a class="btn btn-outline-primary btn-block" href="/catalog/{{$item->id}}">View</a>
                 </div>
               </div>
             </div>

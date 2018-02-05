@@ -18,13 +18,6 @@
             </div>
             <div class="col-md-2 px-5 btn-group btn-group-vertical">
               <a class="btn btn-outline-primary m-1" href="/catalog/{{$item->id}}">View</a>
-              <a class="btn btn-outline-info m-1" href="/catalog/{{$item->id}}/edit">Edit</a>
-              <a href="javascript:{}" class="btn btn-outline-danger m-1" onclick="document.getElementById('delete_form').submit();">Delete</a>
-              <form id="delete_form" method="POST" action="/catalog/{{$item->id}}">
-                {{ csrf_field() }}
-                {{ method_field('DELETE') }}
-              </form>
-              <a class="btn btn-outline-success m-1" href="#">Borrow</a>
             </div>
           </div>
         </div>
