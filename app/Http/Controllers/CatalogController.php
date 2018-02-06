@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Catalog;
 use App\Author;
 use App\Genre;
+use App\Borrow;
 
 class CatalogController extends Controller
 {
@@ -90,7 +91,8 @@ class CatalogController extends Controller
     public function show($id)
     {
         $item = Catalog::find($id);
-        return view('catalog.show')->with('item', $item);
+        $quantity = $item->quantity-Borrow::where('catalogId',$item->id)->whereNull('returned_on')->count();
+        return view('catalog.show')->with('item', $item)->with('quantity', $quantity);
     }
 
     /**

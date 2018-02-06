@@ -24,7 +24,7 @@
           <dd>{{$item->price}}</dd>
 
           <dt>Available Copies</dt>
-          <dd>{{$item->quantity}}</dd>
+          <dd>{{$quantity}}</dd>
 
           <dt>Description</dt>
           <dd>{{$item->description}}</dd>
@@ -40,7 +40,11 @@
           {{ method_field('DELETE') }}
         </form>
         @endif
-        <a class="btn btn-outline-success m-1" href="#">Borrow</a>
+        @if($quantity>0)
+          <a class="btn btn-outline-success m-1" href="/library/{{$item->id}}/borrow">Borrow</a>
+        @else
+          <a class="btn btn-outline-success m-1 disabled" href="#">Unavailable</a>
+        @endif
       </div>
       @endauth
     </div>

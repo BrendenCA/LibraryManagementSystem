@@ -24,3 +24,7 @@ Route::get('/dashboard', 'DashboardController@index');
 
 Route::get('/role/edit', 'RoleController@edit');
 Route::post('/role/update', 'RoleController@update');
+
+Route::get('/library', 'LibraryController@index');
+Route::get('/library/{id}/borrow', 'LibraryController@borrow');
+Route::get('/library/{id}/return', 'LibraryController@return');

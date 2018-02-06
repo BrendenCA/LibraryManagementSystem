@@ -49,4 +49,10 @@ class User extends Authenticatable
     {
         return $this->role()->where('title', $role)->exists();
     }
+
+    public function borrow()
+    {
+        return $this->hasMany('App\Borrow', 'userId');
+    }
+
 }

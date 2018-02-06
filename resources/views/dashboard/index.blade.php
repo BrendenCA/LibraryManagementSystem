@@ -21,7 +21,8 @@
       <div class="card">
         <div class="card-header">Actions</div>
         <div class="card-body">
-          <a href="/role/edit">Change account type</a>
+          <a class="btn btn-link" href="/role/edit">Change account type</a>
+          <a class="btn btn-link" href="/library">Current borrows</a>
         </div>
       </div>
     </div>
