@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Author;
+use Auth;
 
 class AuthorController extends Controller
 {
@@ -35,6 +36,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        Auth::User()->authorizeRoles(['admin']);
         return view('author.create');
     }
 
@@ -46,6 +48,7 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
         'name' => 'required',
         'image' => 'image|nullable|max:1999'
@@ -84,6 +87,7 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $author = Author::find($id);
         return view('author.edit')->with('author', $author);
     }
@@ -97,6 +101,7 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
           'name' => 'required',
           'image' => 'image|nullable|max:1999'
@@ -123,6 +128,7 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $author = Author::find($id);
         if ($author->image != 'author_images/noimage.jpg') {
             Storage::disk('s3')->delete($author->image);

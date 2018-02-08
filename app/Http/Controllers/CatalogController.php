@@ -8,6 +8,7 @@ use App\Catalog;
 use App\Author;
 use App\Genre;
 use App\Borrow;
+use Auth;
 
 class CatalogController extends Controller
 {
@@ -38,6 +39,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
+        Auth::User()->authorizeRoles(['admin']);
         $allAuthors = Author::all();
         $allGenres = Genre::all();
         return view('catalog.create')->with('allAuthors', $allAuthors)->with('allGenres', $allGenres);
@@ -51,6 +53,7 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
           'title' =>'required',
           'description' =>'required',
@@ -103,6 +106,7 @@ class CatalogController extends Controller
      */
     public function edit($id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $item = Catalog::find($id);
         $allAuthors = Author::all();
         $allGenres = Genre::all();
@@ -118,6 +122,7 @@ class CatalogController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
           'title' =>'required',
           'description' =>'required',
@@ -156,6 +161,7 @@ class CatalogController extends Controller
      */
     public function destroy($id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $item = Catalog::find($id);
         if ($item->image != 'catalog_images/noimage.jpg') {
             Storage::disk('s3')->delete($item->image);

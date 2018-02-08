@@ -9,12 +9,23 @@ use App\Role;
 class RoleController extends Controller
 {
     /**
-     * Show the form for editing a resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+       * Show the form for editing a resource.
+       *
+       * @return \Illuminate\Http\Response
+       */
     public function edit()
     {
+        //Auth::User()->authorizeRoles(['admin']);
         return view('role.edit');
     }
 
@@ -26,14 +37,14 @@ class RoleController extends Controller
      */
     public function update(Request $request)
     {
-      $this->validate($request, [
+        //Auth::User()->authorizeRoles(['admin']);
+        $this->validate($request, [
         'email' =>'required',
         'accountType' =>'required',
       ]);
-      $user = User::where('email', $request->input('email'))->first();
-      $user->role()->associate(Role::where('title', $request->input('accountType'))->first());
-      $user->save();
-      return redirect('/dashboard')->with('success', 'Role updated');
+        $user = User::where('email', $request->input('email'))->first();
+        $user->role()->associate(Role::where('title', $request->input('accountType'))->first());
+        $user->save();
+        return redirect('/dashboard')->with('success', 'Role updated');
     }
-
 }

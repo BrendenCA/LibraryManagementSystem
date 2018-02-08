@@ -37,8 +37,7 @@ class User extends Authenticatable
     */
     public function authorizeRoles($roles)
     {
-        return $this->hasRole($roles) ||
-         abort(401, 'This action is unauthorized.');
+        return $this->hasRole($roles) || abort(404);
     }
 
     /**

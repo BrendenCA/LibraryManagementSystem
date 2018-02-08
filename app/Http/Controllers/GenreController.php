@@ -35,6 +35,7 @@ class GenreController extends Controller
      */
     public function create()
     {
+        Auth::User()->authorizeRoles(['admin']);
         return view('genre.create');
     }
 
@@ -46,6 +47,7 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
         'title' => 'required',
       ]);
@@ -76,6 +78,7 @@ class GenreController extends Controller
      */
     public function edit($id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $genre = Genre::find($id);
         return view('genre.edit')->with('genre', $genre);
     }
@@ -89,6 +92,7 @@ class GenreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $genre = Genre::find($id);
         $genre->title = $request->input('title');
         $genre->save();
@@ -104,6 +108,7 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
+        Auth::User()->authorizeRoles(['admin']);
         $genre = Genre::find($id);
         $genre->delete();
         return redirect('/genre')->with('success', 'Genre deleted');
