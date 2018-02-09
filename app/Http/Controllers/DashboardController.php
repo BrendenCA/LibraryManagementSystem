@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bill;
+use App\User;
+use App\Role;
 use Auth;
 
 class DashboardController extends Controller
@@ -37,6 +39,36 @@ class DashboardController extends Controller
     {
         $credit = Auth::User()->credit;
         return view('dashboard.credits')->with('credit', $credit);
+    }
+
+    /**
+       * Show the form for editing a role.
+       *
+       * @return \Illuminate\Http\Response
+       */
+    public function editRole()
+    {
+        //Auth::User()->authorizeRoles(['admin']);
+        return view('dashboard.editrole');
+    }
+
+    /**
+     * Update the specified role in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRole(Request $request)
+    {
+        //Auth::User()->authorizeRoles(['admin']);
+        $this->validate($request, [
+        'email' =>'required',
+        'accountType' =>'required',
+      ]);
+        $user = User::where('email', $request->input('email'))->first();
+        $user->role()->associate(Role::where('title', $request->input('accountType'))->first());
+        $user->save();
+        return redirect('/dashboard')->with('success', 'Role updated');
     }
 
 }

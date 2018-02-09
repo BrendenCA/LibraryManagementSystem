@@ -23,8 +23,8 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/credits', 'DashboardController@credits');
 
-Route::get('/role/edit', 'RoleController@edit');
-Route::post('/role/update', 'RoleController@update');
+Route::get('/role/edit', 'DashboardController@editRole');
+Route::post('/role/update', 'DashboardController@updateRole');
 
 Route::get('/library', 'LibraryController@index');
 Route::get('/library/{id}/borrow', 'LibraryController@borrow');
