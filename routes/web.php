@@ -21,6 +21,7 @@ Route::resource('author', 'AuthorController');
 
 Auth::routes();
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/credits', 'DashboardController@credits');
 
 Route::get('/role/edit', 'RoleController@edit');
 Route::post('/role/update', 'RoleController@update');
@@ -28,3 +29,6 @@ Route::post('/role/update', 'RoleController@update');
 Route::get('/library', 'LibraryController@index');
 Route::get('/library/{id}/borrow', 'LibraryController@borrow');
 Route::get('/library/{id}/return', 'LibraryController@return');
+
+Route::post('/payment/paypal', 'PaypalController@store');
+Route::get('/payment/paypal/status', 'PaypalController@getPaymentStatus');

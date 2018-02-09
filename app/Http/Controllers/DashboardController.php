@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Bill;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -25,5 +27,16 @@ class DashboardController extends Controller
     {
         return view('dashboard.index');
     }
-    
+
+    /**
+     * Show the bills.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function credits()
+    {
+        $credit = Auth::User()->credit;
+        return view('dashboard.credits')->with('credit', $credit);
+    }
+
 }
