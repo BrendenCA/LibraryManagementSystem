@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBorrowTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateBorrowTable extends Migration
      */
     public function up()
     {
-        Schema::create('borrow', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
+            $table->timestamps();
             $table->integer('userId')->unsigned();
-            $table->integer('catalogId')->unsigned();
-            $table->timestamp('borrowed_on')->nullable()->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('returned_on')->nullable();
+            $table->integer('credit_change');
+            $table->integer('borrowId')->unsigned()->nullable();
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('catalogId')->references('id')->on('catalog')->onDelete('cascade');
+            $table->foreign('borrowId')->references('id')->on('borrow')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateBorrowTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('borrow');
+        Schema::dropIfExists('transactions');
     }
 }

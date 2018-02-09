@@ -18,6 +18,7 @@
             </div>
             <div class="col-md-2 px-5 btn-group btn-group-vertical">
               <a class="btn btn-outline-success m-1" href="/library/{{$item->id}}/return">Return</a>
+              <small class="mx-1">Borrowed on: {{$item->borrowed_on->toDateString()}}</small>
             </div>
           </div>
         </div>

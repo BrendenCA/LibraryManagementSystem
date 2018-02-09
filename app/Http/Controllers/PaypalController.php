@@ -34,7 +34,7 @@ class PaypalController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
-      'amount' =>'required|numeric'
+      'amount' =>'required|integer|min:1'
     ]);
 
     $payer = new Payer();
@@ -125,6 +125,10 @@ class PaypalController extends Controller
       // Payment is successful do your business logic here
       Auth::User()->credit += $payment->getTransactions()[0]->getAmount()->getTotal();
       Auth::User()->save();
+      $item = new \App\Transaction;
+      $item->userId = Auth::User()->id;
+      $item->credit_change = $payment->getTransactions()[0]->getAmount()->getTotal();
+      $item->save();
       return redirect('/credits')->with('success', 'Funds Loaded Successfully!');
     }
 

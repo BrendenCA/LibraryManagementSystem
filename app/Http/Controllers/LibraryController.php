@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Borrow;
+use App\Transaction;
 use Auth;
 
 class LibraryController extends Controller
@@ -58,7 +59,16 @@ class LibraryController extends Controller
         $borrow = Borrow::find($id);
         $borrow->returned_on = now();
         $borrow->save();
-
+        $txn = new Transaction;
+        $txn->userId = Auth::User()->id;
+        $txn->borrowId = $id;
+        $duration = $borrow->borrowed_on->diffInDays($borrow->returned_on);
+        if($duration == 0)
+          $duration = 1;
+        $txn->credit_change = -$borrow->catalog->price * $duration;
+        $txn->save();
+        Auth::User()->credit += $txn->credit_change;
+        Auth::User()->save();
         return redirect()->action('LibraryController@index')->with('success', 'Book returned');
     }
 }

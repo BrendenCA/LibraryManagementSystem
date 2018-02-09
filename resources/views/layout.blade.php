@@ -14,7 +14,7 @@
     @include('include.messages')
     @yield('content')
   </main>
-  <footer class="container fixed-bottom">
+  <footer class="container fixed-bottom position-relative text-muted">
     <p>&copy; 2018</p>
   </footer>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

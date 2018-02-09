@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Bill;
 use App\User;
 use App\Role;
+use App\Transaction;
 use Auth;
 
 class DashboardController extends Controller
@@ -38,7 +39,8 @@ class DashboardController extends Controller
     public function credits()
     {
         $credit = Auth::User()->credit;
-        return view('dashboard.credits')->with('credit', $credit);
+        $txns = Auth::User()->transactions->sortByDesc('created_at');
+        return view('dashboard.credits')->with('credit', $credit)->with('txns', $txns);
     }
 
     /**
