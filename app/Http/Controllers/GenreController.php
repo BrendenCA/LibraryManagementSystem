@@ -14,7 +14,7 @@ class GenreController extends Controller
     */
     public function __construct()
     {
-      $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -22,10 +22,20 @@ class GenreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $genres = Genre::paginate(10);
-        return view('genre.index')->with('genres', $genres);
+        $this->validate($request, [
+        'sort' =>'in:title,created_at',
+        'order' =>'in:asc,desc'
+        ]);
+        if ($request->query('sort') && $request->query('order')) {
+            $genres = Genre::orderBy($request->query('sort'), $request->query('order'))->paginate(10);
+            $order = ($request->query('order') == 'asc') ? 'desc' : 'asc';
+        } else {
+            $genres = Genre::paginate(10);
+            $order = 'asc';
+        }
+        return view('genre.index')->with('genres', $genres)->with('order', $order);
     }
 
     /**

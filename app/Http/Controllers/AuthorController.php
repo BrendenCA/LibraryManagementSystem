@@ -18,15 +18,26 @@ class AuthorController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-  /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    /**
+       * Display a listing of the resource.
+       *
+       * @return \Illuminate\Http\Response
+       */
+    public function index(Request $request)
     {
-        $authors = Author::paginate(10);
-        return view('author.index')->with('authors', $authors);
+        $this->validate($request, [
+          'sort' =>'in:name,created_at',
+          'order' =>'in:asc,desc'
+        ]);
+        if ($request->query('sort') && $request->query('order')) {
+            $authors = Author::orderBy($request->query('sort'), $request->query('order'))->paginate(10);
+            $order = ($request->query('order') == 'asc') ? 'desc' : 'asc';
+        } else {
+            $authors = Author::paginate(10);
+            $order = 'asc';
+        }
+        return view('author.index')->with('authors', $authors)->with('order', $order);
+        ;
     }
 
     /**

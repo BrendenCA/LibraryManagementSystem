@@ -14,7 +14,7 @@ class AddCreditToUsers extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->integer('credit');
+            $table->integer('credit')->default(0);
         });
     }
 

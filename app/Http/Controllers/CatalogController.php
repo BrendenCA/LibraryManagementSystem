@@ -27,10 +27,20 @@ class CatalogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $catalog = Catalog::paginate(10);
-        return view('catalog.index')->with('catalogitems', $catalog);
+        $this->validate($request, [
+        'sort' =>'in:title,created_at',
+        'order' =>'in:asc,desc'
+      ]);
+        if ($request->query('sort') && $request->query('order')) {
+            $catalog = Catalog::orderBy($request->query('sort'), $request->query('order'))->paginate(10);
+            $order = ($request->query('order') == 'asc') ? 'desc' : 'asc';
+        } else {
+            $catalog = Catalog::paginate(10);
+            $order = 'asc';
+        }
+        return view('catalog.index')->with('catalogitems', $catalog)->with('order', $order);
     }
     /**
      * Show the form for creating a new resource.
@@ -94,7 +104,7 @@ class CatalogController extends Controller
     public function show($id)
     {
         $item = Catalog::find($id);
-        $quantity = $item->quantity-Borrow::where('catalogId',$item->id)->whereNull('returned_on')->count();
+        $quantity = $item->quantity-Borrow::where('catalogId', $item->id)->whereNull('returned_on')->count();
         return view('catalog.show')->with('item', $item)->with('quantity', $quantity);
     }
 
