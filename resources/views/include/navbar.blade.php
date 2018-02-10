@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
       <a class="navbar-brand" href="/">
-        <img src="https://image.flaticon.com/icons/svg/201/201571.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
         {{ config('app.name', 'Laravel') }}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#app-navbar-collapse" aria-controls="app-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
