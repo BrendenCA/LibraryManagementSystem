@@ -19,6 +19,9 @@ Route::resource('catalog', 'CatalogController');
 Route::resource('genre', 'GenreController');
 Route::resource('author', 'AuthorController');
 
+Route::get('/search', 'SearchController@index');
+Route::post('/search', 'SearchController@search');
+
 Auth::routes();
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/credits', 'DashboardController@credits');

@@ -9,6 +9,7 @@
 
     <div class="collapse navbar-collapse" id="app-navbar-collapse">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li><a class="nav-item nav-link" href="/search">Search</a></li>
         <li><a class="nav-item nav-link" href="/catalog">Catalog</a></li>
         <li><a class="nav-item nav-link" href="/author">Author</a></li>
         <li><a class="nav-item nav-link" href="/genre">Genre</a></li>
