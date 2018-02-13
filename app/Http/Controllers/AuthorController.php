@@ -62,6 +62,8 @@ class AuthorController extends Controller
         Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
         'name' => 'required',
+        'dob' => 'date|nullable',
+        'bio' => 'string|nullable',
         'image' => 'image|nullable|max:1999'
       ]);
 
@@ -72,9 +74,10 @@ class AuthorController extends Controller
         }
         $author = new Author;
         $author->name = $request->input('name');
+        $author->dob = $request->input('dob');
+        $author->bio = $request->input('bio');
         $author->image = $path;
         $author->save();
-
         return redirect('/author/'.$author->id)->with('success', 'Author created');
     }
 
@@ -114,8 +117,10 @@ class AuthorController extends Controller
     {
         Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
-          'name' => 'required',
-          'image' => 'image|nullable|max:1999'
+        'name' => 'required',
+        'dob' => 'date|nullable',
+        'bio' => 'string|nullable',
+        'image' => 'image|nullable|max:1999'
         ]);
         $author = Author::find($id);
         if ($request->hasFile('image')) {
@@ -126,8 +131,9 @@ class AuthorController extends Controller
             $author->image=$path;
         }
         $author->name = $request->input('name');
+        $author->dob = $request->input('dob');
+        $author->bio = $request->input('bio');
         $author->save();
-
         return redirect('/author/'.$author->id)->with('success', 'Author updated');
     }
 

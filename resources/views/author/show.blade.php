@@ -38,8 +38,14 @@
             </div>
           @endif
         @endauth
+        @if($author->dob)
+          <p>Date of birth: {{$author->dob}}</p>
+        @endif
+        @if($author->bio)
+          <p>{{$author->bio}}</p>
+        @endif
       </div>
-      
+
       <div class="col-md-9">
         @if(count($author->catalog)>0)
           @foreach($author->catalog as $item)
