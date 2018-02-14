@@ -11,7 +11,7 @@
       </div>
       <div class="col-md">
         <dl class="container">
-          <dt>Author Name</dt>
+          <dt>Author</dt>
           <dd>{{$item->author->name}}</dd>
 
           <dt>Genre</dt>
@@ -20,8 +20,8 @@
           <dt>ISBN</dt>
           <dd>{{$item->isbn}}</dd>
 
-          <dt>Price</dt>
-          <dd>{{$item->price}}</dd>
+          <dt>Rent per day</dt>
+          <dd>₹ {{$item->price}}</dd>
 
           <dt>Available Copies</dt>
           <dd>{{$quantity}}</dd>
@@ -40,7 +40,7 @@
           {{ method_field('DELETE') }}
         </form>
         @endif
-        @if($quantity>0)
+        @if($quantity>0 && Auth::User()->credit > $item->price)
           <a class="btn btn-outline-success m-1" href="/library/{{$item->id}}/borrow">Borrow</a>
         @else
           <a class="btn btn-outline-success m-1 disabled" href="#">Unavailable</a>

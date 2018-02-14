@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Catalog;
 use App\Borrow;
 use App\Transaction;
 use Auth;
@@ -39,6 +40,8 @@ class LibraryController extends Controller
      */
     public function borrow($id)
     {
+        if(Auth::User()->credit <= Catalog::find($id)->price)
+          return redirect('/credits')->with('error', 'Insufficient credits');
         $borrow = new Borrow;
         $borrow->userId = Auth::User()->id;
         $borrow->catalogId = $id;
