@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #375064;">
   <div class="container">
       <a class="navbar-brand" href="/">
         <img src="/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
