@@ -31,21 +31,21 @@
         </dl>
       </div>
       @auth
-      <div class="col-md-2 btn-group-md btn-group-vertical justify-content-start">
+        <div class="col-md-2 btn-group-md btn-group-vertical justify-content-start">
           @if(Auth::User()->hasRole('admin'))
             <a class="btn btn-outline-info m-1" href="/catalog/{{$item->id}}/edit">Edit</a>
             <a href="javascript:{}" class="btn btn-outline-danger m-1" onclick="document.getElementById('delete_form').submit();">Delete</a>
-        <form id="delete_form" method="POST" action="/catalog/{{$item->id}}">
-          {{ csrf_field() }}
-          {{ method_field('DELETE') }}
-        </form>
-        @endif
-        @if($quantity>0 && Auth::User()->credit > $item->price)
-          <a class="btn btn-outline-success m-1" href="/library/{{$item->id}}/borrow">Borrow</a>
-        @else
-          <a class="btn btn-outline-success m-1 disabled" href="#">Unavailable</a>
-        @endif
-      </div>
+            <form id="delete_form" method="POST" action="/catalog/{{$item->id}}">
+              {{ csrf_field() }}
+              {{ method_field('DELETE') }}
+            </form>
+          @endif
+          @if($quantity>0 && Auth::User()->credit > $item->price)
+            <a class="btn btn-outline-success m-1" href="/library/{{$item->id}}/borrow">Borrow</a>
+          @else
+            <a class="btn btn-outline-success m-1 disabled" href="#">Unavailable</a>
+          @endif
+        </div>
       @endauth
     </div>
   </div>

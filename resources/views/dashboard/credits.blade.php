@@ -20,37 +20,37 @@
         </div>
       </div>
       @if(count($txns)>0)
-      <div class="card mt-2">
-        <div class="card-header">Credit history</div>
-        <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th style="width: 10%">Date</th>
-                <th style="width: 50%">Description</th>
-                <th style="width: 20%">Period</th>
-                <th style="width: 10%">Credits</th>
-              </tr>
-            </thead>
-            <tbody>
-          @foreach ($txns as $txn)
-            <tr>
-              <td>{{$txn->created_at->toDateString()}}</td>
-              @if($txn->borrowId != NULL)
-                <td>{{$txn->borrow->catalog->title}}</td>
-                <td>{{$txn->borrow->borrowed_on->toDateString()}} to {{$txn->borrow->returned_on->toDateString()}}</td>
-              @else
-                <td>Credit Added</td>
-                <td>N/A</td>
-              @endif
-              <td>₹{{$txn->credit_change}}</td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
+        <div class="card mt-2">
+          <div class="card-header">Credit history</div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 10%">Date</th>
+                  <th style="width: 50%">Description</th>
+                  <th style="width: 20%">Period</th>
+                  <th style="width: 10%">Credits</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($txns as $txn)
+                  <tr>
+                    <td>{{$txn->created_at->toDateString()}}</td>
+                    @if($txn->borrowId != NULL)
+                      <td>{{$txn->borrow->catalog->title}}</td>
+                      <td>{{$txn->borrow->borrowed_on->toDateString()}} to {{$txn->borrow->returned_on->toDateString()}}</td>
+                    @else
+                      <td>Credit Added</td>
+                      <td>N/A</td>
+                    @endif
+                    <td>₹{{$txn->credit_change}}</td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    @endif
+      @endif
     </div>
   </div>
 @endsection

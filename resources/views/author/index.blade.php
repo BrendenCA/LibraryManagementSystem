@@ -25,8 +25,8 @@
             </div>
           </div>
         @endforeach
-        {{$authors->links("pagination::bootstrap-4")}}
       </div>
+      {{$authors->links("pagination::bootstrap-4")}}
     @else
       <p>No authors found</p>
     @endif

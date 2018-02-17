@@ -33,7 +33,7 @@ class AuthorController extends Controller
             $authors = Author::orderBy($request->query('sort'), $request->query('order'))->paginate(10);
             $order = ($request->query('order') == 'asc') ? 'desc' : 'asc';
         } else {
-            $authors = Author::paginate(10);
+            $authors = Author::paginate(12);
             $order = 'asc';
         }
         return view('author.index')->with('authors', $authors)->with('order', $order);

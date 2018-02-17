@@ -24,8 +24,8 @@
             </div>
           </div>
         @endforeach
-        {{$genres->links("pagination::bootstrap-4")}}
       </div>
+      {{$genres->links("pagination::bootstrap-4")}}
     @else
       <p>No genres found</p>
     @endif

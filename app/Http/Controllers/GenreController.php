@@ -32,7 +32,7 @@ class GenreController extends Controller
             $genres = Genre::orderBy($request->query('sort'), $request->query('order'))->paginate(10);
             $order = ($request->query('order') == 'asc') ? 'desc' : 'asc';
         } else {
-            $genres = Genre::paginate(10);
+            $genres = Genre::paginate(24);
             $order = 'asc';
         }
         return view('genre.index')->with('genres', $genres)->with('order', $order);

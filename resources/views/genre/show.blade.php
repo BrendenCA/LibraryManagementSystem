@@ -38,37 +38,37 @@
             </div>
           </div>
           <div class="col-md-9">
-        @endif
-        <div class="col-md-12">
-      @endauth
+          @endif
+          <div class="col-md-12">
+          @endauth
 
-      @guest
-        <div class="col-md-12">
-      @endguest
-        @if(count($genre->catalog)>0)
-          @foreach($genre->catalog as $item)
-            <div class="card mb-3">
-              <div class="row">
-                <div class="col-md-2">
-                  <img class="card-img-top" src="{{Storage::disk('s3')->temporaryUrl( $item->image, now()->addMinutes(5) )}}" alt="Book image">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <p class="card-title font-weight-bold">{{$item->title}}</p>
-                    <p class="card-text">{{$item->description}}</p>
+          @guest
+            <div class="col-md-12">
+            @endguest
+            @if(count($genre->catalog)>0)
+              @foreach($genre->catalog as $item)
+                <div class="card mb-3">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img class="card-img-top" src="{{Storage::disk('s3')->temporaryUrl( $item->image, now()->addMinutes(5) )}}" alt="Book image">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <p class="card-title font-weight-bold">{{$item->title}}</p>
+                        <p class="card-text">{{$item->description}}</p>
+                      </div>
+                    </div>
+                    <div class="col-md-2 px-4 my-auto text-center">
+                      <a class="btn btn-outline-primary btn-block" href="/catalog/{{$item->id}}">View</a>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-2 px-4 my-auto text-center">
-                  <a class="btn btn-outline-primary btn-block" href="/catalog/{{$item->id}}">View</a>
-                </div>
-              </div>
-            </div>
-          @endforeach
-        @else
-          <p>No items found</p>
-        @endif
-      </div>
+              @endforeach
+            @else
+              <p>No items found</p>
+            @endif
+          </div>
 
-    </div>
-  </div>
-@endsection
+        </div>
+      </div>
+    @endsection

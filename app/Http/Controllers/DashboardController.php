@@ -50,7 +50,7 @@ class DashboardController extends Controller
        */
     public function editRole()
     {
-        //Auth::User()->authorizeRoles(['admin']);
+        Auth::User()->authorizeRoles(['admin']);
         return view('dashboard.editrole');
     }
 
@@ -62,7 +62,7 @@ class DashboardController extends Controller
      */
     public function updateRole(Request $request)
     {
-        //Auth::User()->authorizeRoles(['admin']);
+        Auth::User()->authorizeRoles(['admin']);
         $this->validate($request, [
         'email' =>'required',
         'accountType' =>'required',
