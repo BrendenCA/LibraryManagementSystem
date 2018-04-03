@@ -14,11 +14,30 @@
               <div class="card-body">
                 <p class="card-title font-weight-bold">{{$item->catalog->title}}</p>
                 <p class="card-text">{{$item->catalog->description}}</p>
+                <dl class="row">
+                  <dt class="col-sm-3">Borrowed on</dt>
+                  <dd class="col-sm-8">{{$item->borrowed_on->toDateString()}}</dd>
+
+                  <dt class="col-sm-3">Due by</dt>
+                  <dd class="col-sm-8">{{$item->borrowed_on->addDays(5)->toDateString()}}</dd>
+
+                  <dt class="col-sm-3">Current charges</dt>
+                  <dd class="col-sm-8">{{$item->calcCharges(now())}}</dd>
+
+                  @if($item->calcFine()>0)
+                    <dt class="col-sm-3">Fine</dt>
+                    <dd class="col-sm-8 text-danger">{{$item->calcFine()}}</dd>
+
+                    <dt class="col-sm-3">Total charges</dt>
+                    <dd class="col-sm-8">{{$item->calcCharges(now()) + $item->calcFine()}}</dd>
+                  @endif
+                </dl>
+
               </div>
             </div>
             <div class="col-md-2 px-5 btn-group btn-group-vertical">
+              <a class="btn btn-outline-secondary m-1" href="/catalog/{{$item->catalog->id}}/">View</a>
               <a class="btn btn-outline-success m-1" href="/library/{{$item->id}}/return">Return</a>
-              <small class="mx-1">Borrowed on: {{$item->borrowed_on->toDateString()}}</small>
             </div>
           </div>
         </div>

@@ -65,10 +65,7 @@ class LibraryController extends Controller
         $txn = new Transaction;
         $txn->userId = Auth::User()->id;
         $txn->borrowId = $id;
-        $duration = $borrow->borrowed_on->diffInDays($borrow->returned_on);
-        if($duration == 0)
-          $duration = 1;
-        $txn->credit_change = -$borrow->catalog->price * $duration;
+        $txn->credit_change = -$borrow->calcCharges($borrow->returned_on) - $borrow->calcFine();
         $txn->save();
         Auth::User()->credit += $txn->credit_change;
         Auth::User()->save();
